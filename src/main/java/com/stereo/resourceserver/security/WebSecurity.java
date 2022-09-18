@@ -1,16 +1,15 @@
 package com.stereo.resourceserver.security;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableWebSecurity
 public class WebSecurity {
 
@@ -35,7 +34,7 @@ public class WebSecurity {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/users/status/check")
 //                .hasAuthority("SCOPE_profile")
-                .hasRole("user")
+                .hasRole("developer")
                 .anyRequest()
                 .authenticated()
                 .and()
